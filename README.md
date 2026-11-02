@@ -28,6 +28,8 @@ Safe by design: idempotent (run it as often as you want), `--dry-run` mode, and 
 
 ---
 
+> **New here?** Follow **[INSTALL.md](INSTALL.md)** — a step-by-step guide for beginners, including a version where Claude Code does the installation for you.
+
 ## Quick start (macOS)
 
 **1. Make your own copy.** Click **Use this template** on GitHub → create a **private** repo (it will contain your config, skills and preferences).
