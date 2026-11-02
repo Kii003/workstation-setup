@@ -1,0 +1,11 @@
+# vscode - extensions (needs Microsoft.VisualStudioCode from dev.txt)
+# Format: one extension ID per line
+anthropic.claude-code
+esbenp.prettier-vscode
+dbaeumer.vscode-eslint
+eamodio.gitlens
+usernamehw.errorlens
+mikestead.dotenv
+yzhang.markdown-all-in-one
+# bradlc.vscode-tailwindcss
+# ms-python.python

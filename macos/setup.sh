@@ -117,8 +117,8 @@ do_dotfiles() {
   local D="$MACOS_DIR/dotfiles"
   link "$D/zshrc"             "$HOME/.zshrc"
   link "$D/gitconfig"         "$HOME/.gitconfig"
-  link "$D/gitignore_global"  "$HOME/.gitignore_global"
-  link "$D/starship.toml"     "$HOME/.config/starship.toml"
+  link "$SHARED_DIR/dotfiles/gitignore_global" "$HOME/.gitignore_global"
+  link "$SHARED_DIR/dotfiles/starship.toml"    "$HOME/.config/starship.toml"
   link "$D/ghostty"           "$HOME/.config/ghostty/config"
   [ -f "$MACOS_DIR/hammerspoon/init.lua" ] && link "$MACOS_DIR/hammerspoon/init.lua" "$HOME/.hammerspoon/init.lua"
 

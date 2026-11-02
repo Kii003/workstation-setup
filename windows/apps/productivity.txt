@@ -1,0 +1,4 @@
+# productivity - launcher, window management, automation
+Microsoft.PowerToys            # Run (launcher), FancyZones (windows), Keyboard Manager
+Raycast.Raycast                # Raycast for Windows - remove if PowerToys Run is enough
+AutoHotkey.AutoHotkey          # automation (see windows/autohotkey/)

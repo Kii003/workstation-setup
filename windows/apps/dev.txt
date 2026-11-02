@@ -1,0 +1,16 @@
+# dev - editors, GUIs and command-line helpers
+Microsoft.VisualStudioCode
+GitHub.GitHubDesktop
+TablePlus.TablePlus            # database GUI
+# Anysphere.Cursor
+
+jqlang.jq                      # read/filter JSON
+BurntSushi.ripgrep.MSVC        # fast code search (rg)
+sharkdp.fd                     # fast file search
+junegunn.fzf                   # fuzzy finder (Ctrl+R history via PSFzf)
+sharkdp.bat                    # cat with syntax highlighting
+eza-community.eza              # better ls
+ajeetdsouza.zoxide             # jump to folders: z <name>
+Gyan.FFmpeg
+ImageMagick.ImageMagick
+# PostgreSQL.PostgreSQL.16

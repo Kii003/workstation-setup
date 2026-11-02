@@ -1,0 +1,2 @@
+# containers
+Docker.DockerDesktop           # needs WSL2 - setup enables it when this module is on

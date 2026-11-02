@@ -1,9 +1,11 @@
 # Global gitignore — applies to every repo on this machine
 
-# macOS
+# macOS / Windows
 .DS_Store
 .AppleDouble
 ._*
+Thumbs.db
+desktop.ini
 
 # Secrets — never commit
 .env

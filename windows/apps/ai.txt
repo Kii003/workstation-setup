@@ -1,0 +1,6 @@
+# ai - assistants and dictation
+# Claude Code CLI is NOT here: windows/claude.ps1 installs it with the official installer
+Anthropic.Claude               # Claude desktop app
+WisprFlow.WisprFlow            # voice dictation in any app
+# Conductor is macOS-only
+# Ollama.Ollama                # local models

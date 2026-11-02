@@ -1,0 +1,36 @@
+# ~/.gitconfig - linked from workstation-setup/windows/dotfiles/gitconfig
+# Name, email and the optional second identity live in ~/.gitconfig.local
+# (generated from config.ps1, never committed).
+
+[include]
+	path = ~/.gitconfig.local
+
+[init]
+	defaultBranch = main
+[core]
+	excludesfile = ~/.gitignore_global
+	autocrlf = input          # keep LF in repos, so macOS and Windows clones match
+	longpaths = true
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true
+	default = current
+[fetch]
+	prune = true
+[rebase]
+	autoStash = true
+[merge]
+	conflictstyle = zdiff3
+[diff]
+	algorithm = histogram
+[rerere]
+	enabled = true
+[branch]
+	sort = -committerdate
+[credential]
+	helper = manager          # Git Credential Manager (ships with Git for Windows): browser sign-in for GitHub
+[alias]
+	undo = reset --soft HEAD~1
+	amend = commit --amend --no-edit
+	wip = !git add -A && git commit -m 'wip'

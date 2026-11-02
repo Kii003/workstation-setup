@@ -1,0 +1,3 @@
+# terminal - prompt and font (the profile is in windows/dotfiles/profile.ps1)
+Starship.Starship
+DEVCOM.JetBrainsMonoNerdFont

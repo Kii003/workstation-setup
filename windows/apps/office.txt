@@ -1,0 +1,3 @@
+# office - Microsoft 365 (large, disabled by default in config.ps1)
+Microsoft.Office
+Microsoft.Teams

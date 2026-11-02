@@ -1,0 +1,5 @@
+# browsers - pick what you use, delete the rest
+Google.Chrome
+ImputNet.Helium                # privacy-focused, minimal Chromium
+# Mozilla.Firefox
+# Brave.Brave

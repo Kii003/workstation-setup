@@ -1,0 +1,4 @@
+# media
+user:Spotify.Spotify           # refuses to install as admin, so it runs as your user
+# Canva desktop: check the ID with "winget search canva", then add it here
+# VideoLAN.VLC

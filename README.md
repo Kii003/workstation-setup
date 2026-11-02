@@ -7,7 +7,7 @@ Fork it, edit one config file, keep it in sync as your setup evolves. Next machi
 | Platform | Status |
 |---|---|
 | macOS | ✅ ready — [`macos/`](macos/) |
-| Windows | 🚧 planned — [`windows/`](windows/) |
+| Windows | ✅ ready — [`windows/`](windows/) |
 
 ---
 
@@ -19,7 +19,7 @@ Fork it, edit one config file, keep it in sync as your setup evolves. Next machi
 - **Git** — good defaults, GitHub CLI auth, optional automatic second identity (e.g. work vs. personal) by folder.
 - **Claude Code** — official native installer, a global `CLAUDE.md` template, safe permission defaults, your own skills linked from the repo, plugins (e.g. [Matt Pocock's skills](https://github.com/mattpocock/skills)) installed from a list.
 - **Secrets out of plain-text `.env`** — templates that reference your password manager, generated on demand.
-- **OS settings** — Finder/Explorer, Dock/Taskbar, keyboard, trackpad, screenshots.
+- **OS settings** — Finder/Explorer, Dock/Taskbar, keyboard, trackpad, screenshots, dark mode.
 - **Snapshot script** — pulls new apps, extensions and skills from a running machine back into the repo, so the next setup is always current.
 
 Safe by design: idempotent (run it as often as you want), `--dry-run` mode, and it **never deletes** anything — files it replaces are moved to a backup folder.
@@ -52,6 +52,16 @@ cd ~/code/workstation-setup/macos
 
 Takes 20–60 minutes depending on modules and bandwidth. Full walkthrough — including what to do after the script — in [`macos/README.md`](macos/README.md).
 
+## Quick start (Windows)
+
+Steps 1–2 as above (Windows settings live in [`windows/config.ps1`](windows/config.ps1) and [`windows/apps/*.txt`](windows/apps/)). Then on the new PC, in a normal PowerShell window:
+
+```powershell
+& ([scriptblock]::Create((irm https://raw.githubusercontent.com/Kii003/workstation-setup/main/windows/bootstrap.ps1))) -Repo https://github.com/<you>/<your-repo>
+```
+
+It installs Git, clones your repo, and runs the setup with a single UAC prompt. Full walkthrough in [`windows/README.md`](windows/README.md).
+
 ---
 
 ## Repository layout
@@ -59,6 +69,7 @@ Takes 20–60 minutes depending on modules and bandwidth. Full walkthrough — i
 ```
 workstation-setup/
 ├── shared/                    # platform-independent
+│   ├── dotfiles/              # starship.toml, gitignore_global (both platforms)
 │   ├── claude/
 │   │   ├── CLAUDE.md          # global Claude Code instructions (template)
 │   │   ├── settings.json      # global permissions
@@ -69,15 +80,24 @@ workstation-setup/
 │   ├── setup.sh               # entry point
 │   ├── config.sh              # ← your settings
 │   ├── brew/*.Brewfile        # app/tool modules
-│   ├── dotfiles/              # zshrc, gitconfig, starship, ghostty
+│   ├── dotfiles/              # zshrc, gitconfig, ghostty
 │   ├── defaults.sh            # macOS settings
 │   ├── claude.sh              # Claude Code install + config linking
 │   ├── raycast/ hammerspoon/  # app configs that can't be scripted fully
 │   └── scripts/snapshot.sh    # sync a running machine back into the repo
-└── windows/                   # coming next
+└── windows/
+    ├── bootstrap.ps1          # one-command start on a fresh PC
+    ├── setup.ps1              # entry point
+    ├── config.ps1             # ← your settings
+    ├── apps/*.txt             # winget modules (same categories as macOS)
+    ├── dotfiles/              # PowerShell profile, gitconfig
+    ├── tweaks.ps1             # Windows settings
+    ├── claude.ps1             # Claude Code install + config linking
+    ├── powertoys/ autohotkey/ # Raycast/Hammerspoon counterparts
+    └── scripts/snapshot.ps1   # sync a running PC back into the repo
 ```
 
-`shared/` is used by both platforms, so your Claude Code setup is identical everywhere.
+`shared/` is used by both platforms, so your Claude Code setup, prompt and global gitignore are identical everywhere.
 
 ---
 
@@ -98,7 +118,7 @@ git remote add template https://github.com/<template-owner>/workstation-setup.gi
 git fetch template && git merge template/main
 ```
 
-Keep personal values in `macos/config.local.sh` (gitignored, same variables as `config.sh`) to avoid merge conflicts.
+Keep personal values in `macos/config.local.sh` / `windows/config.local.ps1` (gitignored, same variables as `config.sh`) to avoid merge conflicts.
 
 ---
 
@@ -114,11 +134,13 @@ Keep personal values in `macos/config.local.sh` (gitignored, same variables as `
 
 **Intel Mac?** Works — the scripts detect `/usr/local` vs. `/opt/homebrew`.
 
+**Windows: is every app ID correct?** Run `.\setup.ps1 -Steps check` on any Windows PC — it verifies each winget ID in your modules.
+
 ---
 
 ## Contributing
 
-Issues and PRs welcome — especially new module suggestions, fixes for newer macOS versions, and the Windows port. Keep defaults generic and opinions commented, so forks can delete what they don't need.
+Issues and PRs welcome — especially new module suggestions, fixes for newer macOS/Windows versions, and verified winget IDs for apps that are still commented out. Keep defaults generic and opinions commented, so forks can delete what they don't need.
 
 ## License
 

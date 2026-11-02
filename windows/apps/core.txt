@@ -1,0 +1,11 @@
+# core - essentials every setup needs (keep this module enabled)
+# Format: one winget ID per line, "# comment" allowed.
+# Prefix "user:" = install as normal user (apps that refuse admin installs).
+# Find IDs with: winget search <name>
+Microsoft.PowerShell           # PowerShell 7 (the setup links your profile into it)
+Microsoft.WindowsTerminal      # preinstalled on Windows 11, ensures latest
+Git.Git                        # git + Git Bash (Claude Code needs it on Windows)
+GitHub.cli                     # gh: auth, clone, PRs
+jdx.mise                       # per-project Node/Python/... versions
+AgileBits.1Password            # password manager - swap for Bitwarden.Bitwarden if you prefer
+AgileBits.1Password.CLI        # op: inject secrets into .env files

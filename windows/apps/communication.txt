@@ -1,0 +1,6 @@
+# communication - chat, docs, meetings
+SlackTechnologies.Slack
+Notion.Notion
+# Granola for Windows: check the ID with "winget search granola", then add it here
+# Zoom.Zoom
+# Discord.Discord
