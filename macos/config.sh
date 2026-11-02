@@ -19,7 +19,7 @@ GIT_ALT_DIR="$HOME/Claude/20_Private"     # matches the workspace's private worl
 # Each module is a file in macos/brew/<name>.Brewfile.
 # Edit those files to add/remove apps. Remove a name here to skip a module.
 BREW_MODULES="core browsers communication ai dev terminal productivity media vscode"
-# Available but off by default:  office  containers
+# Available but off by default:  office  containers  local-ai
 
 # ─── Runtimes (managed by mise, not Homebrew) ────────────────
 # Format: tool@version, space separated. Leave empty to skip.
@@ -35,5 +35,6 @@ SCREENSHOTS_DIR="$HOME/Pictures/Screenshots"     # instead of cluttering the Des
 # ─── Steps ───────────────────────────────────────────────────
 INSTALL_CLAUDE_CODE=true      # CLI + shared/claude config, hooks, agents, plugins
 INSTALL_WORKSPACE=true        # copy the workspace scaffold to WORKSPACE_ROOT (never overwrites)
+LINK_SKILLS_FOR_OTHER_AGENTS=true   # also link your skills into ~/.agents/skills (Codex & other SKILL.md tools)
 APPLY_MACOS_DEFAULTS=true     # Finder, Dock, keyboard, trackpad (macos/defaults.sh)
 LINK_DOTFILES=true            # zshrc, gitconfig, starship, ghostty

@@ -42,5 +42,14 @@ expect allow "bash: normal command"            "$(bash_ 'npm test')"
 expect block "unknown tool fails closed"       '{"tool_name":"Mystery","tool_input":{}}'
 expect block "empty payload fails closed"      ''
 
+# The hook must be registered with onFailure "block", otherwise a hook that can't start
+# (missing bash, wrong path) silently switches the protection off.
+SETTINGS="$(cd "$(dirname "$HOOK")/.." && pwd)/settings.json"
+if [ -f "$SETTINGS" ] && command -v jq >/dev/null 2>&1; then
+  mode="$(jq -r '[.hooks.PreToolUse[]?.hooks[]? | select(.command | test("protect-files")) | .onFailure // "none"][0] // "missing"' "$SETTINGS")"
+  if [ "$mode" = "block" ]; then pass=$((pass+1)); echo "  ok    settings: hook registered with onFailure=block"
+  else failn=$((failn+1)); echo "  FAIL  settings: hook onFailure is '$mode' (want block) in $SETTINGS"; fi
+fi
+
 echo "passed: $pass  failed: $failn"
 [ $failn -eq 0 ]

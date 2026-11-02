@@ -2,3 +2,4 @@
 Microsoft.PowerToys            # Run (launcher), FancyZones (windows), Keyboard Manager
 Raycast.Raycast                # Raycast for Windows - remove if PowerToys Run is enough
 AutoHotkey.AutoHotkey          # automation (see windows/autohotkey/)
+Obsidian.Obsidian              # markdown notes - open ~\Claude\00_Knowledge-Base as a vault

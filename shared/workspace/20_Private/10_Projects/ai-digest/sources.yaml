@@ -1,0 +1,26 @@
+# Sources per track. Edit freely - the prompts read this file every run.
+# Prefer primary sources (changelogs, release notes, official blogs): they're the ones that actually change your rules.
+
+mechanics:   # Track B - "should I work differently?"
+  - name: Claude Code - what's new
+    url: https://code.claude.com/docs/en/whats-new
+  - name: Claude Code releases
+    url: https://github.com/anthropics/claude-code/releases
+  - name: Anthropic engineering blog
+    url: https://www.anthropic.com/engineering
+  - name: Matt Pocock skills releases
+    url: https://github.com/mattpocock/skills/releases
+  - name: Agent skills / plugin ecosystem
+    search: "Claude Code skills plugins new this week"
+  # add: practitioner blogs you trust, other agent tools you use (Codex, Copilot, Cursor ...)
+
+news:        # Track A - "what happened?"
+  - name: Anthropic news
+    url: https://www.anthropic.com/news
+  - name: OpenAI news
+    url: https://openai.com/news
+  - name: Google DeepMind blog
+    url: https://deepmind.google/discover/blog/
+  - name: Hacker News front page (AI)
+    search: "site:news.ycombinator.com AI model release this week"
+  # add: Mistral, Meta, xAI, newsletters you read

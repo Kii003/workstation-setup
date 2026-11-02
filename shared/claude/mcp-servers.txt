@@ -1,0 +1,18 @@
+# MCP servers - added to Claude Code at user scope by the setup (skipped if a server with the name exists).
+# Format, one per line:
+#   <name>  http   <url>                     remote server
+#   <name>  stdio  <command> [args...]       local server
+#
+# Every entry is commented out on purpose: vet a server before you enable it.
+# Checklist: ~/Claude/00_Knowledge-Base/05-practices/mcp-vetting.md
+#   - source repository linked and alive? official publisher namespace?
+#   - more than one release, updated in the last ~3 months?
+#   - what can it read/write, and with whose credentials?
+# An MCP server runs outside the secret protection of settings.json and the hook -
+# a careless one can read or send anything it has access to.
+#
+# Secrets never go in this file. Remote servers usually sign in via OAuth:  claude mcp login <name>
+#
+# Examples (official reference servers - uncomment what you actually use):
+# filesystem  stdio  npx -y @modelcontextprotocol/server-filesystem ~/Claude
+# memory      stdio  npx -y @modelcontextprotocol/server-memory

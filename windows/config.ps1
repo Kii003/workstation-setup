@@ -19,7 +19,7 @@ $GitAltDir   = "$HOME\Claude\20_Private"      # matches the workspace's private 
 # Each module is a file in windows\apps\<name>.txt (winget IDs).
 # Edit those files to add/remove apps. Remove a name here to skip a module.
 $AppModules = @("core", "browsers", "communication", "ai", "dev", "terminal", "productivity", "media", "vscode")
-# Available but off by default:  "office"  "containers"
+# Available but off by default:  "office"  "containers"  "local-ai"
 
 # --- Runtimes (managed by mise) ------------------------------
 # Format: tool@version. Empty array = skip.
@@ -34,6 +34,7 @@ $ExtraDirs     = @()                       # any other folders, e.g. @("$HOME\Wo
 # --- Steps ---------------------------------------------------
 $InstallClaudeCode   = $true    # CLI + shared\claude config, hooks, agents, plugins
 $InstallWorkspace    = $true    # copy the workspace scaffold to $WorkspaceRoot (never overwrites)
+$LinkSkillsForOtherAgents = $true   # also link your skills into ~\.agents\skills (Codex & other SKILL.md tools)
 $ApplyWindowsTweaks  = $true    # Explorer, taskbar, search (windows\tweaks.ps1)
 $LinkDotfiles        = $true    # PowerShell profile, gitconfig, starship
 $ConfigureTerminal   = $true    # Windows Terminal: PowerShell 7 as default, Nerd Font

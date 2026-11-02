@@ -300,7 +300,7 @@ function Do-Claude {
   if (-not $InstallClaudeCode) { return }
   Step "Claude Code"
   Update-SessionPath
-  & "$WinDir\claude.ps1" -SharedDir $SharedDir -BackupDir $BackupDir -DryRun:$DryRun
+  & "$WinDir\claude.ps1" -SharedDir $SharedDir -BackupDir $BackupDir -LinkSkillsForOtherAgents $LinkSkillsForOtherAgents -DryRun:$DryRun
   if (-not $?) { Fail "Claude Code setup" }
 }
 
@@ -332,6 +332,7 @@ function Do-Summary {
   Write-Host "  3. gh auth login"
   Write-Host "  4. claude   -> sign in, then /plugin to check installed plugins"
   Write-Host "  5. In Git Bash: bash ~/.claude/hooks/test-protect-files.sh   -> secret protection works?"
+  Write-Host "     then in Claude Code: /doctor   -> full setup checkup"
   Write-Host "  6. cd $WorkspaceRoot -> fill in CLAUDE.md (router) and the two world files"
   Write-Host "  7. Sign in to your apps"
   if ($AppModules -contains "containers") { Write-Host "  8. Reboot once so WSL2 / Docker work" }

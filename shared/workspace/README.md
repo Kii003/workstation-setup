@@ -16,7 +16,7 @@ One folder for everything you do with Claude Code — copied to `~/Claude` by th
 │   └── 90_Archive/
 ├── 20_Private/               PRIVATE world
 │   ├── 00_Shared/_secrets/
-│   ├── 10_Projects/          serious private projects
+│   ├── 10_Projects/          serious private projects - ships with ai-digest
 │   ├── 70_Learning/          /teach workspaces, one per topic
 │   ├── 80_Labs/              playground
 │   └── 90_Archive/
@@ -45,12 +45,16 @@ cd ~/Claude/20_Private/80_Labs/weather-bot && claude
 # ... work ...
 "wrap up"        # Claude compiles docs/where-we-are.md, appends docs/log.md
 ```
-Knowledge base: `kb`, then `claude` → "ingest" / "query …" / "lint".
+Knowledge base: `kb`, then `claude` → "ingest" / "query …" / "lint". To browse it, open `00_Knowledge-Base` as a vault in **Obsidian** (links and frontmatter are Obsidian-compatible: graph view, Dataview).
+
+## Staying current: ai-digest
+`20_Private/10_Projects/ai-digest` runs Claude Code headless once a week (read-only web tools), checks changelogs and release notes against your setup, and files two short digests into `00_Knowledge-Base/01-inbox/`. You "ingest" them; proposals become tasks only after they're verified. Start with `./run.sh mechanics`, then `./install-weekly.sh` (Windows: `.\run.ps1`, `.\install-weekly.ps1`). Details: `00_Knowledge-Base/06-setup/freshness-loop.md`.
 
 ## First steps after setup
 1. Fill in the router (`CLAUDE.md`): your GitHub/hosting per world.
 2. Fill in the world files (`10_Work/CLAUDE.md`, `20_Private/CLAUDE.md`): accounts, company rules, record limits.
 3. Language and goals in `00_Knowledge-Base/CLAUDE.md` and `00-goals.md`.
 4. Move existing projects into the right world, add a router line for each.
+5. Run the digest once (`ai-digest/run.sh mechanics`), then schedule it.
 
 Background: `00_Knowledge-Base/05-practices/llm-wiki-pattern.md` and `project-standard.md`.

@@ -13,12 +13,13 @@ Fork it, edit one config file, keep it in sync as your setup evolves. Next machi
 
 ## What you get
 
-- **Apps & tools in modules** — browsers, communication, AI, dev, terminal, productivity, media, office, containers. Turn modules on/off in one line, edit each module's list freely.
+- **Apps & tools in modules** — browsers, communication, AI, dev, terminal, productivity (incl. Obsidian for the knowledge base), media, plus optional office, containers and local-ai (Ollama, LM Studio). Turn modules on/off in one line, edit each module's list freely.
 - **Runtimes per project** via [mise](https://mise.jdx.dev) (Node, Python, pnpm …) instead of global installs.
 - **Shell** — zsh with Starship prompt, autosuggestions, fuzzy history (`Ctrl+R`), `z` folder jumping, sensible aliases.
 - **Git** — good defaults, GitHub CLI auth, optional automatic second identity (e.g. work vs. personal) by folder.
-- **Claude Code** — official native installer, a global `CLAUDE.md`, secret protection (deny rules + a tested `protect-files` hook), a critic subagent, your own skills, plugins (e.g. [Matt Pocock's skills](https://github.com/mattpocock/skills)) installed from a list.
-- **Claude workspace** — `~/Claude` with a router, separate work/private "worlds", a knowledge base following [Karpathy's LLM Wiki](shared/workspace/00_Knowledge-Base/05-practices/llm-wiki-pattern.md) pattern, and a project template where every project is a small compiled wiki around its code. `new-project` scaffolds one in a second. → [`shared/workspace/README.md`](shared/workspace/README.md)
+- **Claude Code** — official native installer, a global `CLAUDE.md`, secret protection (deny rules + a tested `protect-files` hook that fails closed), writes outside the project blocked, a critic subagent, plugins (e.g. [Matt Pocock's skills](https://github.com/mattpocock/skills)) and vetted MCP servers installed from lists.
+- **Skills for every agent** — your `SKILL.md` skills are linked for Claude Code *and* `~/.agents/skills` (Codex and other tools that follow the open skills standard). One copy, every tool.
+- **Claude workspace** — `~/Claude` with a router, separate work/private "worlds", a knowledge base following [Karpathy's LLM Wiki](shared/workspace/00_Knowledge-Base/05-practices/llm-wiki-pattern.md) pattern, and a project template where every project is a small compiled wiki around its code. `new-project` scaffolds one in a second. Includes **ai-digest**: a weekly headless Claude run that files AI changes into the knowledge-base inbox, so your rules don't go stale. → [`shared/workspace/README.md`](shared/workspace/README.md)
 - **Secrets out of plain-text `.env`** — templates that reference your password manager, generated on demand.
 - **OS settings** — Finder/Explorer, Dock/Taskbar, keyboard, trackpad, screenshots, dark mode.
 - **Snapshot script** — pulls new apps, extensions and skills from a running machine back into the repo, so the next setup is always current.
@@ -39,6 +40,7 @@ Safe by design: idempotent (run it as often as you want), `--dry-run` mode, and 
 | [`macos/brew/*.Brewfile`](macos/brew/) | add/remove apps in each module |
 | [`shared/claude/CLAUDE.md`](shared/claude/CLAUDE.md) | your global instructions for Claude Code |
 | [`shared/claude/plugins.txt`](shared/claude/plugins.txt) | Claude Code plugins to install |
+| [`shared/claude/mcp-servers.txt`](shared/claude/mcp-servers.txt) | MCP servers to add — vet them first ([checklist](shared/workspace/00_Knowledge-Base/05-practices/mcp-vetting.md)) |
 | [`shared/claude/skills/`](shared/claude/skills/) | your own skills |
 | [`shared/workspace/`](shared/workspace/) | router, world rules, knowledge base, project template |
 
@@ -78,11 +80,13 @@ workstation-setup/
 │   │   ├── hooks/             # protect-files.sh + its test
 │   │   ├── agents/            # adversarial-critic
 │   │   ├── plugins.txt        # plugins to install
+│   │   ├── mcp-servers.txt    # MCP servers to add (vetted, commented by default)
 │   │   └── skills/            # your own skills
 │   ├── workspace/             → ~/Claude (copied once, never overwritten)
 │   │   ├── CLAUDE.md          # router
 │   │   ├── 00_Knowledge-Base/ # Karpathy LLM wiki
 │   │   ├── 10_Work/ 20_Private/   # worlds with their own rules + secrets
+│   │   ├── 20_Private/10_Projects/ai-digest/   # weekly AI digest → knowledge-base inbox
 │   │   ├── _templates/        # project / skill / agent
 │   │   └── new-project.sh/.ps1
 │   └── templates/env.tpl      # .env template referencing 1Password
@@ -140,7 +144,7 @@ Keep personal values in `macos/config.local.sh` / `windows/config.local.ps1` (gi
 
 **I already have a `~/Claude` folder.** The workspace step only adds files that don't exist yet — your router, world files and projects are left alone. Point `WORKSPACE_ROOT` elsewhere to keep them fully separate.
 
-**Is the secret protection real?** Two layers: deny rules in `settings.json` and the `protect-files.sh` hook (for what rules can't express: shell redirection, `.env.example`/`.env.tpl` exceptions, `.git/`). Run `bash ~/.claude/hooks/test-protect-files.sh` — 22 cases. It's a guard rail against mistakes, not a sandbox: the hook's header lists what it deliberately can't catch.
+**Is the secret protection real?** Two layers: deny rules in `settings.json` and the `protect-files.sh` hook (for what rules can't express: shell redirection, `.env.example`/`.env.tpl` exceptions, `.git/`). Run `bash ~/.claude/hooks/test-protect-files.sh` — 22 cases. It's a guard rail against mistakes, not a sandbox: the hook's header lists what it deliberately can't catch. The hook is registered with `onFailure: "block"`, so if it can't run at all, Claude Code blocks instead of silently continuing unprotected.
 
 **Something failed halfway.** Fix the cause and re-run — completed steps are skipped. Run one step with `./setup.sh <step>`, e.g. `./setup.sh brew`. The summary at the end lists what failed.
 

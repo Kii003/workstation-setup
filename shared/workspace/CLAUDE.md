@@ -16,6 +16,7 @@ Two worlds plus a knowledge base. **The folder decides account, secrets and rule
 <!-- One line per project, added when it's created (new-project does this for you):
 - `20_Private/10_Projects/my-app` - what it is (where it's hosted)
 -->
+- `20_Private/10_Projects/ai-digest` - weekly AI digest into the knowledge-base inbox (local git only)
 
 ## Conventions
 - Container folders numbered in steps of 10 (`00_` shared/meta, `80_` labs, `90_` archive); project repos unnumbered, lowercase-with-dashes, named like on GitHub; no spaces.

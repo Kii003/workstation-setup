@@ -22,6 +22,9 @@ templates & rules that reference those pages
    (global CLAUDE.md, world files, _templates/, workstation-setup repo)
 ```
 
+## Built in: ai-digest
+`20_Private/10_Projects/ai-digest` implements the top of this loop: weekly headless `claude -p` with read-only tools, two tracks (mechanics: should I work differently? · news: what happened?), max 5 items each, filed as `01-inbox/YYYY-MM-DD-digest-<track>.md`. Tick `+`/`-` per item - the next run reads the ticks. Then "ingest" here.
+
 ## Rules
 1. **One source per thing.** Templates exist once (`_templates/`, the workstation-setup repo) - never a copy per project.
 2. **Everything carries a date.** Rules and templates get `verified: YYYY-MM-DD against <docs/version>` → lint finds the old ones.

@@ -58,7 +58,7 @@ Order matters — password manager first makes everything else fast.
 1. **Open a new terminal** (Ghostty, if you kept the terminal module) so the new shell config loads.
 2. **Password manager.** For 1Password: sign in → Settings → Developer → *Integrate with 1Password CLI* → in the terminal: `op signin`. Install the browser extension.
 3. **GitHub:** `gh auth login` → GitHub.com → HTTPS → browser.
-4. **Claude Code:** `claude` → sign in → `/plugin` to confirm your plugins are active. Then `bash ~/.claude/hooks/test-protect-files.sh` (all cases must pass).
+4. **Claude Code:** `claude` → sign in → `/plugin` to confirm your plugins are active. Then `bash ~/.claude/hooks/test-protect-files.sh` (all cases must pass) and `/doctor` inside Claude Code for a full setup checkup.
 5. **Workspace:** fill in `~/Claude/CLAUDE.md` (router) and the two world files — see [`../shared/workspace/README.md`](../shared/workspace/README.md).
 6. **Sign in to your apps** (browser, chat, notes, editor settings sync …).
 7. **Apps not in Homebrew:** install manually and consider opening an issue/PR if a cask exists.
@@ -95,6 +95,8 @@ pnpm install          # or npm / bun
 envgen                # .env from .env.tpl via 1Password (see below)
 claude                # with Matt Pocock's skills: run /setup-matt-pocock-skills once per repo
 ```
+- **Knowledge base:** open `~/Claude/00_Knowledge-Base` as a vault in Obsidian.
+- **AI digest:** `cd ~/Claude/20_Private/10_Projects/ai-digest && ./run.sh mechanics`, check the result in the inbox, then `./install-weekly.sh`.
 
 ---
 

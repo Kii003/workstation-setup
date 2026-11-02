@@ -168,7 +168,7 @@ EOF
 do_claude() {
   [ "$INSTALL_CLAUDE_CODE" = true ] || return 0
   step "Claude Code"
-  DRY_RUN="$DRY_RUN" SHARED_DIR="$SHARED_DIR" BACKUP_DIR="$BACKUP_DIR" \
+  DRY_RUN="$DRY_RUN" SHARED_DIR="$SHARED_DIR" BACKUP_DIR="$BACKUP_DIR" LINK_SKILLS_FOR_OTHER_AGENTS="$LINK_SKILLS_FOR_OTHER_AGENTS" \
     bash "$MACOS_DIR/claude.sh" || fail "Claude Code setup"
 }
 
@@ -190,6 +190,7 @@ ${c_y}Next (manual, see README → "After the script"):${c_0}
   3. gh auth login
   4. claude   → sign in, then /plugin to check installed plugins
   5. bash ~/.claude/hooks/test-protect-files.sh   → secret protection works?
+     then in Claude Code: /doctor                   → full setup checkup
   6. cd $WORKSPACE_ROOT → fill in CLAUDE.md (router) and the two world files
   7. Sign in to your apps and grant permissions when macOS asks
 EOF

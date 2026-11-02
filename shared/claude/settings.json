@@ -36,7 +36,8 @@
       "Bash(rm -rf ~*)",
       "Bash(rm -rf $HOME*)",
       "Bash(rm -rf ..*)"
-    ]
+    ],
+    "blockWritesOutsideWorkingDirectories": true
   },
   "hooks": {
     "PreToolUse": [
@@ -45,11 +46,15 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/protect-files.sh"
+            "command": "$HOME/.claude/hooks/protect-files.sh",
+            "onFailure": "block"
           }
         ]
       }
     ]
+  },
+  "enabledPlugins": {
+    "mattpocock-skills@mattpocock": true
   },
   "extraKnownMarketplaces": {
     "mattpocock": {
@@ -58,8 +63,5 @@
         "repo": "mattpocock/skills"
       }
     }
-  },
-  "enabledPlugins": {
-    "mattpocock-skills@mattpocock": true
   }
 }

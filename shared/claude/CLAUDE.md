@@ -22,7 +22,7 @@
 
 ## Never without asking
 - Force-push, history rewrite, deleting branches or tags
-- Touching files outside the current project directory
+- Touching files outside the current project directory (writes are also blocked by `blockWritesOutsideWorkingDirectories`)
 - Adding dependencies or bumping versions
 - Reading or printing secrets, `.env` files or credentials (also blocked by settings + hook)
 - Deleting files - rename or move to `90_Archive/` instead

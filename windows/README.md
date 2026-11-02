@@ -59,7 +59,7 @@ cd ~\code\workstation-setup\windows
 1. **Close the window, open Windows Terminal** — PowerShell 7 with your profile loads.
 2. **Password manager.** For 1Password: sign in → Settings → Developer → *Integrate with 1Password CLI* → `op signin`. Install the browser extension.
 3. **GitHub:** `gh auth login` → GitHub.com → HTTPS → browser.
-4. **Claude Code:** `claude` → sign in → `/plugin` to confirm your plugins. In **Git Bash**: `bash ~/.claude/hooks/test-protect-files.sh` — the secret-protection hook is a bash script, all cases must pass.
+4. **Claude Code:** `claude` → sign in → `/plugin` to confirm your plugins. In **Git Bash**: `bash ~/.claude/hooks/test-protect-files.sh` — the secret-protection hook is a bash script, all cases must pass. Then `/doctor` inside Claude Code for a full setup checkup. **Important:** the hook is registered with `onFailure: "block"` — if it can't run (no Git Bash, no jq), Claude Code blocks file access until it's fixed. That's deliberate: protection never switches off silently.
 5. **Workspace:** fill in `~\Claude\CLAUDE.md` (router) and the two world files — see [`../shared/workspace/README.md`](../shared/workspace/README.md).
 6. **Sign in to your apps.**
 7. Using containers? **Reboot once** so WSL2 and Docker work.
@@ -69,6 +69,8 @@ cd ~\code\workstation-setup\windows
 - **PowerToys:** restore your backup ([`powertoys/README.md`](powertoys/README.md))
 - **AutoHotkey:** your `main.ahk` is already in Startup if it's in [`autohotkey/`](autohotkey/)
 - **Taskbar:** unpin what you don't click daily — `Alt+Space` (PowerToys Run) or `Win` + typing handles the rest
+- **Knowledge base:** open `~\Claude\00_Knowledge-Base` as a vault in Obsidian.
+- **AI digest:** `cd ~\Claude\20_Private\10_Projects\ai-digest; .\run.ps1 mechanics`, check the result in the inbox, then `.\install-weekly.ps1`.
 
 ---
 

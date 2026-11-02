@@ -3,6 +3,7 @@
 param(
   [string]$SharedDir = (Join-Path (Split-Path $PSScriptRoot -Parent) "shared"),
   [string]$BackupDir = "$HOME\.workstation-setup-backup\" + (Get-Date -Format "yyyyMMdd-HHmmss"),
+  [bool]$LinkSkillsForOtherAgents = $true,
   [switch]$DryRun
 )
 $Src  = Join-Path $SharedDir "claude"
@@ -51,6 +52,12 @@ foreach ($kind in @("skills", "agents", "commands", "hooks")) {
   }
 }
 
+# 3b) Skills are an open standard (SKILL.md) - also link them where other agents look
+#     (~\.agents\skills: Codex CLI and the `npx skills` installer), so one copy serves every tool
+if ($LinkSkillsForOtherAgents -and (Test-Path "$Src\skills")) {
+  Get-ChildItem "$Src\skills" -Directory | ForEach-Object { Set-Link $_.FullName "$HOME\.agents\skills\$($_.Name)" }
+}
+
 # 4) Plugins from plugins.txt
 Get-Content "$Src\plugins.txt" | ForEach-Object { ($_ -replace "#.*$", "").Trim() } | Where-Object { $_ } | ForEach-Object {
   if ($_ -like "marketplace:*") {
@@ -62,5 +69,24 @@ Get-Content "$Src\plugins.txt" | ForEach-Object { ($_ -replace "#.*$", "").Trim(
     if ($DryRun) { Dry "claude plugin install $_"; return }
     claude plugin install $_ *> $null
     if ($LASTEXITCODE -eq 0) { Ok "plugin $_" } else { Warn "$_ not installed automatically - inside Claude Code run: /plugin install $_" }
+  }
+}
+
+# 5) MCP servers from mcp-servers.txt (user scope; existing names are left alone)
+if (Test-Path "$Src\mcp-servers.txt") {
+  Get-Content "$Src\mcp-servers.txt" | ForEach-Object { ($_ -replace "^\s*#.*$", "").Trim() } | Where-Object { $_ } | ForEach-Object {
+    $parts = $_ -split "\s+", 3
+    if ($parts.Count -lt 3) { Warn "mcp-servers.txt: incomplete line for '$($parts[0])'"; return }
+    $name = $parts[0]; $transport = $parts[1]; $rest = $parts[2].Replace("~/", "$HOME/")
+    if ($DryRun) { Dry "claude mcp add $name ($transport)"; return }
+    claude mcp get $name *> $null
+    if ($LASTEXITCODE -eq 0) { Ok "mcp $name (exists)"; return }
+    if ($transport -eq "http" -or $transport -eq "sse") {
+      claude mcp add --scope user --transport $transport $name $rest *> $null
+    } elseif ($transport -eq "stdio") {
+      $cmd = @("mcp", "add", "--scope", "user", $name, "--") + ($rest -split "\s+")
+      & claude @cmd *> $null
+    } else { Warn "mcp $name - unknown transport '$transport'"; return }
+    if ($LASTEXITCODE -eq 0) { Ok "mcp $name" } else { Warn "mcp $name not added - try: claude mcp add --scope user ..." }
   }
 }
