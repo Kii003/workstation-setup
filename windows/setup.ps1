@@ -214,6 +214,8 @@ function Do-Workspace {
   $added = 0; $kept = 0
   Get-ChildItem $src -Recurse -File -Force | ForEach-Object {
     $rel = $_.FullName.Substring($src.Length).TrimStart("\", "/")
+    $top = ($rel -split "[\\/]")[0]
+    if ($WorkspaceParts.Count -and $top -match "^\d\d_" -and ($WorkspaceParts -notcontains $top)) { return }
     $dst = Join-Path $WorkspaceRoot $rel
     if (Test-Path $dst) { $kept++; return }
     if ($DryRun) { $added++; return }

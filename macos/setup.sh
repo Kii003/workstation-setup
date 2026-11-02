@@ -116,6 +116,10 @@ do_workspace() {
   local src="$SHARED_DIR/workspace" added=0 kept=0 rel
   while IFS= read -r -d '' f; do
     rel="${f#$src/}"
+    # only the worlds this machine should have (top-level numbered folders); root files and _templates always
+    case "$rel" in
+      [0-9][0-9]_*/*) [ -z "$WORKSPACE_PARTS" ] || case " $WORKSPACE_PARTS " in *" ${rel%%/*} "*) ;; *) continue ;; esac ;;
+    esac
     if [ -e "$WORKSPACE_ROOT/$rel" ]; then kept=$((kept+1)); continue; fi
     run mkdir -p "$(dirname "$WORKSPACE_ROOT/$rel")"
     run cp -p "$f" "$WORKSPACE_ROOT/$rel"

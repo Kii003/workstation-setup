@@ -29,6 +29,9 @@ MISE_GLOBALS="node@lts python@3.12 pnpm@latest"
 # The Claude workspace: router, knowledge base, work/private worlds, project template
 # (shared/workspace/ → copied here once, never overwritten). All your projects live inside it.
 WORKSPACE_ROOT="$HOME/Claude"
+# Which top-level workspace folders this machine gets. Empty = all.
+# Example for a private-only machine: "00_Knowledge-Base 20_Private 30_Skills"
+WORKSPACE_PARTS=""
 EXTRA_DIRS=""                                    # any other folders, e.g. "$HOME/Work/Docs"
 SCREENSHOTS_DIR="$HOME/Pictures/Screenshots"     # instead of cluttering the Desktop
 

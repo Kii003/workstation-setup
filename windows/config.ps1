@@ -29,6 +29,9 @@ $MiseGlobals = @("node@lts", "python@3.12", "pnpm@latest")
 # The Claude workspace: router, knowledge base, work/private worlds, project template
 # (shared\workspace\ -> copied here once, never overwritten). All your projects live inside it.
 $WorkspaceRoot = "$HOME\Claude"
+# Which top-level workspace folders this machine gets. Empty = all.
+# Example for a private-only machine: @("00_Knowledge-Base", "20_Private", "30_Skills")
+$WorkspaceParts = @()
 $ExtraDirs     = @()                       # any other folders, e.g. @("$HOME\Work\Docs")
 
 # --- Steps ---------------------------------------------------
