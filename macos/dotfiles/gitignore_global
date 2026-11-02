@@ -1,0 +1,28 @@
+# Global gitignore — applies to every repo on this machine
+
+# macOS
+.DS_Store
+.AppleDouble
+._*
+
+# Secrets — never commit
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Editors
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+
+# Claude Code personal/local files
+.claude/settings.local.json
+CLAUDE.local.md
+
+# Logs & misc
+*.log
+npm-debug.log*
+.direnv/

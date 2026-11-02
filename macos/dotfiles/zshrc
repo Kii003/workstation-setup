@@ -1,0 +1,80 @@
+# ═════════════════════════════════════════════════════════════
+# ~/.zshrc — linked from workstation-setup/macos/dotfiles/zshrc
+# Machine-specific or private stuff goes in ~/.zshrc.local
+# ═════════════════════════════════════════════════════════════
+
+# ─── PATH ────────────────────────────────────────────────────
+[ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[ -x /usr/local/bin/brew ]    && eval "$(/usr/local/bin/brew shellenv)"
+export PATH="$HOME/.local/bin:$PATH"            # Claude Code native install
+[ -f ~/.config/workstation-setup/env.zsh ] && source ~/.config/workstation-setup/env.zsh
+: "${PROJECTS_ROOT:=$HOME/code}"
+
+# ─── History ─────────────────────────────────────────────────
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+setopt SHARE_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_REDUCE_BLANKS
+
+# ─── Completion & comfort ────────────────────────────────────
+setopt AUTO_CD
+autoload -Uz compinit && compinit -C
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+# ─── Tools (each line is skipped if the tool isn't installed) ─
+has() { command -v "$1" >/dev/null 2>&1; }
+has mise     && eval "$(mise activate zsh)"
+has direnv   && eval "$(direnv hook zsh)"
+has zoxide   && eval "$(zoxide init zsh)"
+has fzf      && source <(fzf --zsh)
+has starship && eval "$(starship init zsh)"
+[ -n "$HOMEBREW_PREFIX" ] && {
+  f="$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh";         [ -f "$f" ] && source "$f"
+  f="$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"; [ -f "$f" ] && source "$f"
+  unset f
+}
+
+has code && export EDITOR="code --wait"
+
+# ─── Aliases ─────────────────────────────────────────────────
+has eza && alias ls="eza --group-directories-first"
+has eza && alias ll="eza -la --git --group-directories-first"
+has eza && alias lt="eza --tree --level=2 --git-ignore"
+has bat && alias cat="bat --paging=never"
+alias reload="source ~/.zshrc"
+
+alias p='cd "$PROJECTS_ROOT"'                    # jump to your projects folder
+alias dl="cd ~/Downloads"
+
+# git
+alias g="git"
+alias gs="git status -sb"
+alias gl="git log --oneline --graph --decorate -20"
+alias gp="git push"
+alias gpl="git pull --rebase"
+alias gco="git checkout"
+alias gcm="git commit -m"
+
+# Claude Code
+alias c="claude"
+alias cc="claude --continue"                    # continue last session
+alias cr="claude --resume"                      # pick a session
+
+# dev
+alias ports="lsof -iTCP -sTCP:LISTEN -n -P"     # what's listening on which port
+
+# ─── Functions ───────────────────────────────────────────────
+mkcd() { mkdir -p "$1" && cd "$1"; }
+
+# Generate .env from a 1Password template:  envgen [template] [output]
+envgen() {
+  local tpl="${1:-.env.tpl}" out="${2:-.env}"
+  [ -f "$tpl" ] || { echo "No $tpl in this folder"; return 1; }
+  op inject -i "$tpl" -o "$out" && echo "✓ $out generated from 1Password"
+}
+
+# Pull new apps/skills/extensions from this machine back into the setup repo
+setup-snapshot() { "$WORKSTATION_SETUP_DIR/macos/scripts/snapshot.sh"; }
+
+# ─── Local overrides ─────────────────────────────────────────
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local

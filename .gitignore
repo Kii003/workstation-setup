@@ -1,0 +1,13 @@
+.DS_Store
+
+# Personal overrides of macos/config.sh — keep out of the shared template
+macos/config.local.sh
+windows/config.local.ps1
+
+# Never commit real secrets
+.env
+.env.*
+
+# App exports may contain personal data. If your copy is PRIVATE and you want
+# them versioned, delete these lines.
+*.rayconfig

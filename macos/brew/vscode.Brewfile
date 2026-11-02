@@ -1,0 +1,10 @@
+# vscode — extensions (needs visual-studio-code from dev.Brewfile)
+vscode "anthropic.claude-code"
+vscode "esbenp.prettier-vscode"
+vscode "dbaeumer.vscode-eslint"
+vscode "eamodio.gitlens"
+vscode "usernamehw.errorlens"
+vscode "mikestead.dotenv"
+vscode "yzhang.markdown-all-in-one"
+# vscode "bradlc.vscode-tailwindcss"
+# vscode "ms-python.python"

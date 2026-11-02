@@ -1,0 +1,36 @@
+# ~/.gitconfig — linked from workstation-setup/macos/dotfiles/gitconfig
+# Name, email and the optional second identity live in ~/.gitconfig.local
+# (generated from config.sh, never committed).
+
+[include]
+	path = ~/.gitconfig.local
+
+[init]
+	defaultBranch = main
+[core]
+	excludesfile = ~/.gitignore_global
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true
+	default = current
+[fetch]
+	prune = true
+[rebase]
+	autoStash = true
+[merge]
+	conflictstyle = zdiff3
+[diff]
+	algorithm = histogram
+[rerere]
+	enabled = true
+[branch]
+	sort = -committerdate
+[credential "https://github.com"]
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = !gh auth git-credential
+[alias]
+	undo = reset --soft HEAD~1
+	amend = commit --amend --no-edit
+	wip = !git add -A && git commit -m 'wip'

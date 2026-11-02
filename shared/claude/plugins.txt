@@ -1,0 +1,13 @@
+# Claude Code plugins — installed by the platform setup script
+#
+# Format, one per line:
+#   plugin@marketplace          install a plugin
+#   marketplace:owner/repo      register an extra marketplace (put it before plugins from it)
+#
+# Browse what's available inside Claude Code with: /plugin
+
+# Matt Pocock's engineering skills (TDD, diagnose, grill-with-docs, triage, git guardrails, ...)
+# Auto-updates. Don't also install them via `npx skills add`, or every skill shows up twice.
+# After installing, run /setup-matt-pocock-skills once per repo.
+marketplace:mattpocock/skills
+mattpocock-skills@mattpocock

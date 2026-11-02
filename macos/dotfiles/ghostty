@@ -1,0 +1,14 @@
+# Ghostty Terminal
+font-family = JetBrainsMono Nerd Font
+font-size = 14
+theme = dark:Catppuccin Mocha,light:Catppuccin Latte
+window-padding-x = 10
+window-padding-y = 8
+macos-option-as-alt = true
+copy-on-select = clipboard
+confirm-close-surface = false
+shell-integration-features = cursor,sudo,title
+
+# Cmd+Shift+Enter: split right, Cmd+Shift+D: split down (e.g. Claude Code next to your dev server)
+keybind = cmd+shift+enter=new_split:right
+keybind = cmd+shift+d=new_split:down
