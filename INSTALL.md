@@ -61,6 +61,10 @@ Later the setup signs you in properly (`gh auth login`), so the token is only ne
 
 ## A · Let Claude do it
 
+**Have the Claude desktop app?** Claude Code is built in — no terminal install needed. Open the app → switch to **Code** → pick or create a folder (e.g. `code` in your home folder) as the working folder → paste the prompt below. Claude runs the commands on your computer and asks before each one. Then continue with Step 4 as usual.
+
+**No desktop app, or prefer the terminal?**
+
 **macOS:** open **Terminal** (Cmd + Space → type "Terminal" → Enter) and install Claude Code with the official installer:
 
 ```bash
@@ -82,6 +86,8 @@ irm https://claude.ai/install.ps1 | iex
 Close and reopen PowerShell, then `mkdir ~\code; cd ~\code; claude`.
 
 Sign in to Claude when asked. Then paste this prompt (replace the two placeholders):
+
+*Just want guidance, not automation?* Paste the same prompt into a normal Claude chat (desktop app or claude.ai) and add "Guide me step by step, I'll type the commands myself." Claude reads this guide and walks you through it.
 
 ```text
 Set up this computer with my workstation-setup repository.
