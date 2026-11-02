@@ -6,7 +6,7 @@
 
 $cfg = "$HOME\.config\workstation-setup"
 if (Test-Path "$cfg\env.ps1") { . "$cfg\env.ps1" }
-if (-not $env:PROJECTS_ROOT) { $env:PROJECTS_ROOT = "$HOME\code" }
+if (-not $env:WORKSPACE_ROOT) { $env:WORKSPACE_ROOT = "$HOME\Claude" }
 if ($env:Path -notlike "*$HOME\.local\bin*") { $env:Path = "$HOME\.local\bin;$env:Path" }   # Claude Code
 
 function Test-Cmd($c) { [bool](Get-Command $c -ErrorAction SilentlyContinue) }
@@ -38,7 +38,8 @@ if (Test-Cmd eza) {
   function lt { eza --tree --level=2 --git-ignore @args }
 }
 function reload { . $PROFILE }
-function p  { Set-Location $env:PROJECTS_ROOT }          # jump to your projects folder
+function p  { Set-Location $env:WORKSPACE_ROOT }                          # jump to the Claude workspace
+function kb { Set-Location (Join-Path $env:WORKSPACE_ROOT "00_Knowledge-Base") }   # knowledge base
 function dl { Set-Location "$HOME\Downloads" }
 function which($name) { Get-Command $name -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source }
 
@@ -68,6 +69,9 @@ function envgen($tpl = ".env.tpl", $out = ".env") {
   op inject -i $tpl -o $out
   if ($LASTEXITCODE -eq 0) { Write-Host "[ok] $out generated from 1Password" -ForegroundColor Green }
 }
+
+# New project from the workspace template:  new-project 20_Private/80_Labs my-idea "what it is"
+function new-project { & (Join-Path $env:WORKSPACE_ROOT "new-project.ps1") @args }
 
 # Pull new apps/skills/extensions from this machine back into the setup repo
 function setup-snapshot { & "$env:WORKSTATION_SETUP_DIR\windows\scripts\snapshot.ps1" }

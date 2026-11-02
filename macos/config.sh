@@ -13,7 +13,7 @@ GIT_EMAIL="you@example.com"            # default identity for all repos
 # Optional second identity, used automatically for repos inside GIT_ALT_DIR
 # (e.g. work vs. personal). Leave GIT_ALT_EMAIL empty to disable.
 GIT_ALT_EMAIL=""
-GIT_ALT_DIR="$HOME/code/personal"
+GIT_ALT_DIR="$HOME/Claude/20_Private"     # matches the workspace's private world
 
 # ─── Modules ─────────────────────────────────────────────────
 # Each module is a file in macos/brew/<name>.Brewfile.
@@ -25,13 +25,15 @@ BREW_MODULES="core browsers communication ai dev terminal productivity media vsc
 # Format: tool@version, space separated. Leave empty to skip.
 MISE_GLOBALS="node@lts python@3.12 pnpm@latest"
 
-# ─── Folders ─────────────────────────────────────────────────
-PROJECTS_ROOT="$HOME/code"                       # where git repos live
-PROJECT_DIRS="work personal"                     # subfolders of PROJECTS_ROOT
-EXTRA_DIRS=""                                    # any other folders, e.g. "$HOME/Work/Docs $HOME/Work/Misc"
+# ─── Workspace & folders ─────────────────────────────────────
+# The Claude workspace: router, knowledge base, work/private worlds, project template
+# (shared/workspace/ → copied here once, never overwritten). All your projects live inside it.
+WORKSPACE_ROOT="$HOME/Claude"
+EXTRA_DIRS=""                                    # any other folders, e.g. "$HOME/Work/Docs"
 SCREENSHOTS_DIR="$HOME/Pictures/Screenshots"     # instead of cluttering the Desktop
 
 # ─── Steps ───────────────────────────────────────────────────
-INSTALL_CLAUDE_CODE=true      # CLI + shared/claude config + plugins
+INSTALL_CLAUDE_CODE=true      # CLI + shared/claude config, hooks, agents, plugins
+INSTALL_WORKSPACE=true        # copy the workspace scaffold to WORKSPACE_ROOT (never overwrites)
 APPLY_MACOS_DEFAULTS=true     # Finder, Dock, keyboard, trackpad (macos/defaults.sh)
 LINK_DOTFILES=true            # zshrc, gitconfig, starship, ghostty

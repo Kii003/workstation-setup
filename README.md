@@ -17,7 +17,8 @@ Fork it, edit one config file, keep it in sync as your setup evolves. Next machi
 - **Runtimes per project** via [mise](https://mise.jdx.dev) (Node, Python, pnpm …) instead of global installs.
 - **Shell** — zsh with Starship prompt, autosuggestions, fuzzy history (`Ctrl+R`), `z` folder jumping, sensible aliases.
 - **Git** — good defaults, GitHub CLI auth, optional automatic second identity (e.g. work vs. personal) by folder.
-- **Claude Code** — official native installer, a global `CLAUDE.md` template, safe permission defaults, your own skills linked from the repo, plugins (e.g. [Matt Pocock's skills](https://github.com/mattpocock/skills)) installed from a list.
+- **Claude Code** — official native installer, a global `CLAUDE.md`, secret protection (deny rules + a tested `protect-files` hook), a critic subagent, your own skills, plugins (e.g. [Matt Pocock's skills](https://github.com/mattpocock/skills)) installed from a list.
+- **Claude workspace** — `~/Claude` with a router, separate work/private "worlds", a knowledge base following [Karpathy's LLM Wiki](shared/workspace/00_Knowledge-Base/05-practices/llm-wiki-pattern.md) pattern, and a project template where every project is a small compiled wiki around its code. `new-project` scaffolds one in a second. → [`shared/workspace/README.md`](shared/workspace/README.md)
 - **Secrets out of plain-text `.env`** — templates that reference your password manager, generated on demand.
 - **OS settings** — Finder/Explorer, Dock/Taskbar, keyboard, trackpad, screenshots, dark mode.
 - **Snapshot script** — pulls new apps, extensions and skills from a running machine back into the repo, so the next setup is always current.
@@ -39,6 +40,7 @@ Safe by design: idempotent (run it as often as you want), `--dry-run` mode, and 
 | [`shared/claude/CLAUDE.md`](shared/claude/CLAUDE.md) | your global instructions for Claude Code |
 | [`shared/claude/plugins.txt`](shared/claude/plugins.txt) | Claude Code plugins to install |
 | [`shared/claude/skills/`](shared/claude/skills/) | your own skills |
+| [`shared/workspace/`](shared/workspace/) | router, world rules, knowledge base, project template |
 
 **3. On the new Mac:**
 
@@ -70,11 +72,19 @@ It installs Git, clones your repo, and runs the setup with a single UAC prompt. 
 workstation-setup/
 ├── shared/                    # platform-independent
 │   ├── dotfiles/              # starship.toml, gitignore_global (both platforms)
-│   ├── claude/
-│   │   ├── CLAUDE.md          # global Claude Code instructions (template)
-│   │   ├── settings.json      # global permissions
+│   ├── claude/                → ~/.claude
+│   │   ├── CLAUDE.md          # global instructions (template)
+│   │   ├── settings.json      # deny rules, hook, plugins
+│   │   ├── hooks/             # protect-files.sh + its test
+│   │   ├── agents/            # adversarial-critic
 │   │   ├── plugins.txt        # plugins to install
 │   │   └── skills/            # your own skills
+│   ├── workspace/             → ~/Claude (copied once, never overwritten)
+│   │   ├── CLAUDE.md          # router
+│   │   ├── 00_Knowledge-Base/ # Karpathy LLM wiki
+│   │   ├── 10_Work/ 20_Private/   # worlds with their own rules + secrets
+│   │   ├── _templates/        # project / skill / agent
+│   │   └── new-project.sh/.ps1
 │   └── templates/env.tpl      # .env template referencing 1Password
 ├── macos/
 │   ├── setup.sh               # entry point
@@ -97,7 +107,7 @@ workstation-setup/
     └── scripts/snapshot.ps1   # sync a running PC back into the repo
 ```
 
-`shared/` is used by both platforms, so your Claude Code setup, prompt and global gitignore are identical everywhere.
+`shared/` is used by both platforms, so your Claude Code setup, workspace, prompt and global gitignore are identical everywhere.
 
 ---
 
@@ -126,7 +136,11 @@ Keep personal values in `macos/config.local.sh` / `windows/config.local.ps1` (gi
 
 **Do I need 1Password?** No. It's in the `core` module because the secrets workflow uses its CLI. Swap it for Bitwarden or anything else and adjust `envgen` in the zshrc.
 
-**Do I need Claude Code?** No. Set `INSTALL_CLAUDE_CODE=false` and remove the `ai` module.
+**Do I need Claude Code?** No. Set `INSTALL_CLAUDE_CODE=false` and `INSTALL_WORKSPACE=false` and remove the `ai` module.
+
+**I already have a `~/Claude` folder.** The workspace step only adds files that don't exist yet — your router, world files and projects are left alone. Point `WORKSPACE_ROOT` elsewhere to keep them fully separate.
+
+**Is the secret protection real?** Two layers: deny rules in `settings.json` and the `protect-files.sh` hook (for what rules can't express: shell redirection, `.env.example`/`.env.tpl` exceptions, `.git/`). Run `bash ~/.claude/hooks/test-protect-files.sh` — 22 cases. It's a guard rail against mistakes, not a sandbox: the hook's header lists what it deliberately can't catch.
 
 **Something failed halfway.** Fix the cause and re-run — completed steps are skipped. Run one step with `./setup.sh <step>`, e.g. `./setup.sh brew`. The summary at the end lists what failed.
 

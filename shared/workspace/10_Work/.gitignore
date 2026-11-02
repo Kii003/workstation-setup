@@ -1,0 +1,8 @@
+# This folder is a workspace, not a project - each project has its own repository.
+# If a repository is ever started here by mistake, these lines keep secrets and local files out.
+00_Shared/_secrets/
+_secrets/
+node_modules/
+.env
+*.env
+.DS_Store

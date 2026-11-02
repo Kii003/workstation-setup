@@ -5,7 +5,6 @@ cask "tableplus"               # database GUI
 # cask "cursor"
 # cask "zed"
 
-brew "jq"                      # read/filter JSON
 brew "ripgrep"                 # fast code search (rg)
 brew "fd"                      # fast file search
 brew "fzf"                     # fuzzy finder, Ctrl+R history

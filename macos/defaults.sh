@@ -2,7 +2,7 @@
 # Opinionated macOS settings. Every line is commented — delete what you don't want.
 # All of these can be changed back in System Settings.
 set -uo pipefail
-PROJECTS_ROOT="${PROJECTS_ROOT:-$HOME/code}"
+WORKSPACE_ROOT="${WORKSPACE_ROOT:-$HOME/Claude}"
 SCREENSHOTS_DIR="${SCREENSHOTS_DIR:-$HOME/Pictures/Screenshots}"
 
 # ─── Keyboard ────────────────────────────────────────────────
@@ -29,7 +29,7 @@ defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"   # list vie
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"   # search current folder
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 defaults write com.apple.finder NewWindowTarget -string "PfLo"
-defaults write com.apple.finder NewWindowTargetPath -string "file://$PROJECTS_ROOT/"
+defaults write com.apple.finder NewWindowTargetPath -string "file://$WORKSPACE_ROOT/"
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true    # no .DS_Store on network drives
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 

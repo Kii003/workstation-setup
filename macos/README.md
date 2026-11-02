@@ -7,6 +7,7 @@ Chronological, from an unboxed Mac to a working setup.
 - [ ] Your copy of this template exists (private repo) and `config.sh` has your Git identity
 - [ ] Modules in `config.sh` and app lists in `brew/` match what you actually use
 - [ ] Your own Claude skills are in `../shared/claude/skills/` — or run `scripts/snapshot.sh` on your current machine
+- [ ] Optional: adapt `../shared/workspace/` (world names, router, knowledge-base language)
 - [ ] Optional: Raycast export in `raycast/`, Hammerspoon `init.lua` in `hammerspoon/`
 - [ ] You know your password manager login (for 1Password: email, password, **Secret Key** from the Emergency Kit)
 
@@ -41,9 +42,10 @@ cd ~/code/workstation-setup/macos
 | `homebrew` | installs Homebrew — asks for your Mac password once |
 | `brew` | installs every module listed in `BREW_MODULES` |
 | `runtimes` | global Node/Python/pnpm via mise (`MISE_GLOBALS`) |
-| `folders` | projects root + subfolders, screenshots folder |
+| `folders` | extra folders, screenshots folder |
+| `workspace` | copies the Claude workspace to `~/Claude` (only missing files) |
 | `dotfiles` | links zshrc, gitconfig, starship, ghostty; writes `~/.gitconfig.local` |
-| `claude` | Claude Code CLI, global CLAUDE.md + settings, your skills, plugins |
+| `claude` | Claude Code CLI, global CLAUDE.md + settings, hook, agents, your skills, plugins |
 | `macos` | Finder, Dock, keyboard, trackpad, screenshot settings |
 | `summary` | lists failures and next steps |
 
@@ -56,9 +58,10 @@ Order matters — password manager first makes everything else fast.
 1. **Open a new terminal** (Ghostty, if you kept the terminal module) so the new shell config loads.
 2. **Password manager.** For 1Password: sign in → Settings → Developer → *Integrate with 1Password CLI* → in the terminal: `op signin`. Install the browser extension.
 3. **GitHub:** `gh auth login` → GitHub.com → HTTPS → browser.
-4. **Claude Code:** `claude` → sign in → `/plugin` to confirm your plugins are active.
-5. **Sign in to your apps** (browser, chat, notes, editor settings sync …).
-6. **Apps not in Homebrew:** install manually and consider opening an issue/PR if a cask exists.
+4. **Claude Code:** `claude` → sign in → `/plugin` to confirm your plugins are active. Then `bash ~/.claude/hooks/test-protect-files.sh` (all cases must pass).
+5. **Workspace:** fill in `~/Claude/CLAUDE.md` (router) and the two world files — see [`../shared/workspace/README.md`](../shared/workspace/README.md).
+6. **Sign in to your apps** (browser, chat, notes, editor settings sync …).
+7. **Apps not in Homebrew:** install manually and consider opening an issue/PR if a cask exists.
 
 ## 6 · Permissions (≈5 min)
 
@@ -79,8 +82,13 @@ macOS asks on first launch; otherwise System Settings → Privacy & Security:
 
 ## 8 · Per project
 
+New project from the template (scaffold, git init, router entry):
 ```bash
-cd ~/code/work
+new-project 20_Private/80_Labs my-idea "what it is"
+```
+Existing repo — clone it into the right world:
+```bash
+cd ~/Claude/10_Work/10_Projects
 gh repo clone <org>/<repo> && cd <repo>
 mise install          # project's Node/Python versions from .tool-versions / mise.toml
 pnpm install          # or npm / bun
@@ -104,7 +112,8 @@ On a new machine there's nothing to copy — sign in and run `envgen`.
 
 | Command | Does |
 |---|---|
-| `p` | cd to your projects root |
+| `p` / `kb` | cd to the workspace / knowledge base |
+| `new-project <container> <name> "desc"` | project from the template + router entry |
 | `z <part of name>` | jump to a recently used folder |
 | `Ctrl+R` | fuzzy-search shell history |
 | `ll` / `lt` | detailed list / tree |

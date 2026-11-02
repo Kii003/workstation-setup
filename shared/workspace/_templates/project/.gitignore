@@ -1,0 +1,27 @@
+# Claude Code personal files
+.claude/settings.local.json
+CLAUDE.local.md
+
+# Secrets (mirrors the deny rules and the protect-files hook in ~/.claude)
+.env
+.env.*
+!.env.example
+!.env.tpl
+secrets/
+_secrets
+credentials.json
+service-account*.json
+*.pem
+*.key
+
+# Dependencies & build output
+node_modules/
+.venv/
+__pycache__/
+dist/
+build/
+.next/
+
+# OS
+.DS_Store
+Thumbs.db

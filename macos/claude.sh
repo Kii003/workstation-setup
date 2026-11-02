@@ -32,7 +32,7 @@ link "$SRC/CLAUDE.md"     "$DEST/CLAUDE.md"
 link "$SRC/settings.json" "$DEST/settings.json"
 
 # 3) Your own skills / agents / commands — linked one by one so other content in ~/.claude stays untouched
-for kind in skills agents commands; do
+for kind in skills agents commands hooks; do
   [ -d "$SRC/$kind" ] || continue
   for item in "$SRC/$kind"/*; do
     [ -e "$item" ] || continue

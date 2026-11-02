@@ -35,10 +35,11 @@ What happens:
 | `apps` | apps marked `user:` (e.g. Spotify refuses admin installs) |
 | `vscode` | VS Code extensions |
 | `runtimes` | global Node/Python/pnpm via mise |
-| `folders` | projects root + subfolders |
+| `folders` | extra folders |
+| `workspace` | copies the Claude workspace to `~\Claude` (only missing files) |
 | `dotfiles` | links PowerShell profile (PS 7 and 5.1), gitconfig, starship; writes `~\.gitconfig.local`; installs PSFzf |
 | `terminal` | Windows Terminal: PowerShell 7 as default, Nerd Font |
-| `claude` | Claude Code CLI, global CLAUDE.md + settings, your skills, plugins |
+| `claude` | Claude Code CLI, global CLAUDE.md + settings, hook, agents, your skills, plugins |
 | `tweaks` | Explorer, taskbar, search, dark mode, keyboard, clipboard history |
 | `summary` | lists failures and next steps |
 
@@ -58,9 +59,10 @@ cd ~\code\workstation-setup\windows
 1. **Close the window, open Windows Terminal** — PowerShell 7 with your profile loads.
 2. **Password manager.** For 1Password: sign in → Settings → Developer → *Integrate with 1Password CLI* → `op signin`. Install the browser extension.
 3. **GitHub:** `gh auth login` → GitHub.com → HTTPS → browser.
-4. **Claude Code:** `claude` → sign in → `/plugin` to confirm your plugins.
-5. **Sign in to your apps.**
-6. Using containers? **Reboot once** so WSL2 and Docker work.
+4. **Claude Code:** `claude` → sign in → `/plugin` to confirm your plugins. In **Git Bash**: `bash ~/.claude/hooks/test-protect-files.sh` — the secret-protection hook is a bash script, all cases must pass.
+5. **Workspace:** fill in `~\Claude\CLAUDE.md` (router) and the two world files — see [`../shared/workspace/README.md`](../shared/workspace/README.md).
+6. **Sign in to your apps.**
+7. Using containers? **Reboot once** so WSL2 and Docker work.
 
 ## 5 · Polish (≈10 min)
 
@@ -74,7 +76,8 @@ cd ~\code\workstation-setup\windows
 
 | Command | Does |
 |---|---|
-| `p` | cd to your projects root |
+| `p` / `kb` | cd to the workspace / knowledge base |
+| `new-project <container> <name> "desc"` | project from the template + router entry |
 | `z <part of name>` | jump to a recently used folder |
 | `Ctrl+R` | fuzzy-search history (PSFzf) · `↑` searches history by prefix |
 | `ll` / `lt` | detailed list / tree |

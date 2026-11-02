@@ -4,12 +4,51 @@
   "permissions": {
     "deny": [
       "Read(**/.env)",
-      "Read(**/.env.*)",
+      "Read(**/secrets/**)",
+      "Read(**/_secrets/**)",
       "Read(**/*.pem)",
       "Read(**/*.key)",
+      "Read(**/*.p12)",
+      "Read(**/*.pfx)",
+      "Read(**/*.jks)",
+      "Read(**/*.keystore)",
+      "Read(**/*.ppk)",
+      "Read(**/*.kdbx)",
+      "Read(**/id_rsa*)",
+      "Read(**/id_dsa*)",
+      "Read(**/id_ecdsa*)",
+      "Read(**/id_ed25519*)",
+      "Read(**/.netrc)",
+      "Read(**/.npmrc)",
+      "Read(**/.pypirc)",
+      "Read(**/.pgpass)",
+      "Read(**/credentials.json)",
+      "Read(**/service-account*.json)",
+      "Read(**/.aws/**)",
+      "Read(**/.ssh/**)",
+      "Read(**/.gnupg/**)",
+      "Read(**/.kube/config)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git reset --hard*)",
+      "Bash(rm -rf /)",
       "Bash(rm -rf /*)",
       "Bash(rm -rf ~*)",
-      "Bash(git push --force*)"
+      "Bash(rm -rf $HOME*)",
+      "Bash(rm -rf ..*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Write|Edit|MultiEdit|NotebookEdit|Grep|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/protect-files.sh"
+          }
+        ]
+      }
     ]
   },
   "extraKnownMarketplaces": {

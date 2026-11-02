@@ -7,5 +7,6 @@ Microsoft.WindowsTerminal      # preinstalled on Windows 11, ensures latest
 Git.Git                        # git + Git Bash (Claude Code needs it on Windows)
 GitHub.cli                     # gh: auth, clone, PRs
 jdx.mise                       # per-project Node/Python/... versions
+jqlang.jq                      # JSON tool - also required by the Claude Code protect-files hook
 AgileBits.1Password            # password manager - swap for Bitwarden.Bitwarden if you prefer
 AgileBits.1Password.CLI        # op: inject secrets into .env files

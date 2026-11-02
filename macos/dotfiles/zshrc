@@ -8,7 +8,7 @@
 [ -x /usr/local/bin/brew ]    && eval "$(/usr/local/bin/brew shellenv)"
 export PATH="$HOME/.local/bin:$PATH"            # Claude Code native install
 [ -f ~/.config/workstation-setup/env.zsh ] && source ~/.config/workstation-setup/env.zsh
-: "${PROJECTS_ROOT:=$HOME/code}"
+: "${WORKSPACE_ROOT:=$HOME/Claude}"
 
 # ─── History ─────────────────────────────────────────────────
 HISTFILE=~/.zsh_history
@@ -43,7 +43,8 @@ has eza && alias lt="eza --tree --level=2 --git-ignore"
 has bat && alias cat="bat --paging=never"
 alias reload="source ~/.zshrc"
 
-alias p='cd "$PROJECTS_ROOT"'                    # jump to your projects folder
+alias p='cd "$WORKSPACE_ROOT"'                   # jump to the Claude workspace
+alias kb='cd "$WORKSPACE_ROOT/00_Knowledge-Base"' # knowledge base
 alias dl="cd ~/Downloads"
 
 # git
@@ -72,6 +73,9 @@ envgen() {
   [ -f "$tpl" ] || { echo "No $tpl in this folder"; return 1; }
   op inject -i "$tpl" -o "$out" && echo "✓ $out generated from 1Password"
 }
+
+# New project from the workspace template:  new-project 20_Private/80_Labs my-idea "what it is"
+new-project() { "$WORKSPACE_ROOT/new-project.sh" "$@"; }
 
 # Pull new apps/skills/extensions from this machine back into the setup repo
 setup-snapshot() { "$WORKSTATION_SETUP_DIR/macos/scripts/snapshot.sh"; }

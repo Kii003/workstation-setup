@@ -44,7 +44,7 @@ Set-Link "$Src\CLAUDE.md"     "$Dest\CLAUDE.md"
 Set-Link "$Src\settings.json" "$Dest\settings.json"
 
 # 3) Your own skills / agents / commands, linked one by one
-foreach ($kind in @("skills", "agents", "commands")) {
+foreach ($kind in @("skills", "agents", "commands", "hooks")) {
   if (-not (Test-Path "$Src\$kind")) { continue }
   Get-ChildItem "$Src\$kind" | Where-Object { $_.Name -notin @("README.md", ".gitkeep") } | ForEach-Object {
     Set-Link $_.FullName "$Dest\$kind\$($_.Name)"
